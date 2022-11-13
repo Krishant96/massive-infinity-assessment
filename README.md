@@ -2,58 +2,87 @@
 
 Backend services for an admin dashboard to manage companies and their employees
 
-DB Setup
+## DB Setup
 
 Replace DB host, name and credentials with your own
 
+``` env
 DB_NAME=massive_infinity_assessment
 DB_USER=root
 DB_PASSWORD=admin
 DB_HOST=localhost
+```
 
 If you do not have a DB setup follow this tutorial to set one up locally
 [Local MySQL DB Setup](https://ladvien.com/data-analytics-mysql-localhost-setup/)
 
-Project Setup
+## Project Setup
 
-Clone the repo
+### Clone the repo
+
+``` bash
 git clone <https://github.com/Krishant96/massive-infinity-assessment.git>
+```
 
-Run npm install
+### Install dependencies
+
+``` bash
 npm install
+```
 
-Build the project
+### Build the project
+
+``` bash
 npm run build
+```
 
-Database migration
+### Database migration
+
+``` bash
 npm run setup:migration
+```
 
-Start server
+### Start server
+
+``` bash
 npm run start
+```
 
-Endpoints
+## Endpoints
 
-Login
+### Login
+
+``` text
 POST /login
+```
 
-Users
+### Users
+
+``` text
 POST /user
 GET /user
 GET /user/:userId
 PUT /user/:userId
 DELETE /user/:userId
+```
 
-Companies
+### Companies
+
+``` text
 POST /company
 GET /company
 GET /company/:companyId
 PUT /company/:companyId
 DELETE /company/:companyId
 POST /company/:companyId/upload-logo
+```
 
-Employees
+### Employees
+
+``` text
 POST /employee
 GET /employee
 GET /employee/:employeeId
 PUT /employee/:employeeId
 DELETE /employee/:employeeId
+```
