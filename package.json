@@ -10,7 +10,6 @@
         "build": "rimraf ./build && npx tsc",
         "dev": "nodemon src/app.ts",
         "key-pair": "node build/generateKeyPair.js",
-        "setup:db": "node src/scripts/createDb.js",
         "setup:migration": "node build/scripts/migration.js",
         "setup:seed": "npm run key-pair && node build/scripts/seeder.js",
         "setup": "npm run setup:db && npm run setup:tables",
