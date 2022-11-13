@@ -8,7 +8,7 @@ const envMissing = (env: string): string => {
   throw `Missing ${env} variable`;
 };
 
-const superadmin = async () => {
+export const superadmin = async () => {
   const email = process.env.SUPERADMIN_EMAIL || envMissing('SUPERADMIN_EMAIL');
   const password =
     process.env.SUPERADMIN_PASSWORD || envMissing('SUPERADMIN_PASSWORD');
@@ -34,4 +34,4 @@ const superadmin = async () => {
   }
 };
 
-superadmin();
+// superadmin();

@@ -1,15 +1,15 @@
 import { Company } from './company.model';
 import { Request, Response } from 'express';
+import * as path from 'path';
 
 const create = async (req: Request, res: Response) => {
   try {
-    const { name, email, logo, website } = req.body;
+    const { name, email, website } = req.body;
     const status = 'active';
 
     const company = await Company.create({
       name,
       email,
-      logo,
       website,
       status,
     });
@@ -87,10 +87,34 @@ const deleteOne = async (req: Request, res: Response) => {
   }
 };
 
+const uploadLogo = async (req, res) => {
+  console.log(req.files);
+  const files = req.files;
+  console.log(files);
+
+  Object.keys(files).forEach(key => {
+    const filepath = path.join(
+      __dirname,
+      '..',
+      'public/uploads',
+      files[key].name,
+    );
+    files[key].mv(filepath, err => {
+      if (err) return res.status(500).json({ status: 'error', message: err });
+    });
+  });
+
+  return res.json({
+    status: 'success',
+    message: Object.keys(files).toString(),
+  });
+};
+
 export default {
   create,
   findAll,
   findById,
   update,
   deleteOne,
+  uploadLogo,
 };

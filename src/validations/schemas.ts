@@ -19,14 +19,12 @@ export const schemas = {
   createCompany: Joi.object().keys({
     name: Joi.string().required(),
     email: Joi.string().required(),
-    logo: Joi.string().required(),
     website: Joi.string().required(),
   }),
 
   updateCompany: Joi.object().keys({
     name: Joi.string().optional(),
     email: Joi.string().optional(),
-    logo: Joi.string().optional(),
     website: Joi.string().optional(),
   }),
 

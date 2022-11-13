@@ -9,7 +9,6 @@ export interface CompanyCreateModel {
   id?: string;
   name: string;
   email: string;
-  logo: string;
   website: string;
   status: string;
 }
@@ -19,7 +18,6 @@ export interface CompanyModel
   id: string;
   name: string;
   email: string;
-  logo: string;
   website: string;
   status: string;
   createdAt: string;
@@ -30,7 +28,6 @@ export interface CompanyViewModel {
   id: string;
   name: string;
   email: string;
-  logo: string;
   website: string;
 }
 
@@ -61,9 +58,6 @@ export const Company = sequelize.define<CompanyModel, CompanyCreateModel>(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-    },
-    logo: {
-      type: DataTypes.STRING,
     },
     website: {
       type: DataTypes.STRING,

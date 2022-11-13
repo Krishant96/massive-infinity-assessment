@@ -2,7 +2,6 @@ import crypto = require('crypto');
 import jsonwebtoken = require('jsonwebtoken');
 import fs = require('fs');
 import path = require('path');
-// import { Request, Response, NextFunction } from 'express';
 
 const pathToKey = path.join(__dirname, '..', 'id_rsa_priv.pem');
 const PRIV_KEY = fs.readFileSync(pathToKey, 'utf8');
@@ -67,25 +66,8 @@ function issueJWT(user) {
   };
 }
 
-// function checkRole(...roles) {
-//   return (req: Request, res: Response, next: NextFunction) => {
-//     if (!req.user) {
-//       // throw error
-//       return res.redirect('/login');
-//     }
-
-//     const hasRole = roles.find(role => req.user.role === role);
-//     if (!hasRole) {
-//       return res.redirect('/login');
-//     }
-
-//     return next();
-//   };
-// }
-
 export default {
   validPassword,
   genPassword,
   issueJWT,
-  // checkRole,
 };

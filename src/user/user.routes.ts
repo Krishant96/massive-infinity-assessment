@@ -1,10 +1,10 @@
 import users from './user.controller';
-import r = require('express');
+import express = require('express');
 import passport = require('passport');
 import { validator } from '../lib/validations';
 import { schemas } from '../validations/schemas';
 
-const router = r.Router();
+const router = express.Router();
 
 // Create a new user
 router.post(

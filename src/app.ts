@@ -4,12 +4,16 @@ import dotenv = require('dotenv');
 import { routes } from './routes/routes';
 import passport = require('passport');
 import { passportJwt } from './config/passport';
+import { superadmin } from './scripts/seeder';
 
 dotenv.config();
 
 const app: Express = express();
 
 require('./config/database');
+
+// seed superadmin
+superadmin();
 
 passportJwt(passport);
 
