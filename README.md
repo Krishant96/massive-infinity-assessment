@@ -56,6 +56,8 @@ npm run start
 POST /login
 ```
 
+> Authentication type: bearer
+
 ### Users
 
 ``` text
