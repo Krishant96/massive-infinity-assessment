@@ -7,7 +7,7 @@ import { employeeRoutes } from '../employee/employee.routes';
 const router = r.Router();
 
 router.use('/', authRoutes);
-router.use('/admin', userRoutes);
+router.use('/user', userRoutes);
 router.use('/company', companyRoutes);
 router.use('/employee', employeeRoutes);
 

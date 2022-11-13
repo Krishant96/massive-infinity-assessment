@@ -2,13 +2,11 @@ import { Employee } from './employee.model';
 import { Request, Response } from 'express';
 
 const create = async (req: Request, res: Response) => {
-  const company = req.params.companyId;
-  const { first_name, last_name, email, phone } = req.body;
-  const status = 'active';
-
-  console.log(req.params.companyId);
-
   try {
+    const company = req.params.companyId;
+    const { first_name, last_name, email, phone } = req.body;
+    const status = 'active';
+
     const employee = await Employee.create({
       first_name,
       last_name,
@@ -25,8 +23,8 @@ const create = async (req: Request, res: Response) => {
 };
 
 const findAll = async (req: Request, res: Response) => {
-  const company = req.params.companyId;
   try {
+    const company = req.params.companyId;
     const employees = await Employee.findAll({
       where: { company },
     });
@@ -52,11 +50,11 @@ const findById = async (req: Request, res: Response) => {
 };
 
 const update = async (req: Request, res: Response) => {
-  const company = req.params.companyId;
-  const id = req.params.employeeId;
-  const payload = req.body;
-
   try {
+    const company = req.params.companyId;
+    const id = req.params.employeeId;
+    const payload = req.body;
+
     const employee = await Employee.findOne({
       where: { company, id },
     });
@@ -73,10 +71,10 @@ const update = async (req: Request, res: Response) => {
 };
 
 const deleteOne = async (req: Request, res: Response) => {
-  const company = req.params.companyId;
-  const id = req.params.employeeId;
-
   try {
+    const company = req.params.companyId;
+    const id = req.params.employeeId;
+
     const employee = await Employee.findOne({
       where: { company, id },
     });

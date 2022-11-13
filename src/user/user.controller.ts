@@ -3,14 +3,14 @@ import { Request, Response } from 'express';
 import utils from '../lib/utils';
 
 const create = async (req: Request, res: Response) => {
-  const { email, password, role } = req.body;
-  const saltHash = utils.genPassword(password);
-  const salt = saltHash.salt;
-  const hash = saltHash.hash;
-  const status = 'active';
-
   try {
-    const admin = await User.create({
+    const { email, password, role } = req.body;
+    const saltHash = utils.genPassword(password);
+    const salt = saltHash.salt;
+    const hash = saltHash.hash;
+    const status = 'active';
+
+    const user = await User.create({
       email: email,
       hash: hash,
       salt: salt,
@@ -18,7 +18,7 @@ const create = async (req: Request, res: Response) => {
       status: status,
     });
 
-    return res.json(admin);
+    return res.json(user);
   } catch (err) {
     return res.status(500).json(err);
   }
@@ -26,45 +26,49 @@ const create = async (req: Request, res: Response) => {
 
 const findAll = async (req: Request, res: Response) => {
   try {
-    const admins = await User.findAll();
-    return res.json(admins);
+    const user = await User.findAll();
+    return res.json(user);
   } catch (err) {
     return res.status(500).json({ err: 'An error occured' });
   }
 };
 
 const findById = async (req: Request, res: Response) => {
-  try {
-    const id = req.params.userId;
+  const id = req.params.userId;
 
-    const admin = await User.findOne({
+  try {
+    const user = await User.findOne({
       where: { id },
     });
 
-    return res.json(admin);
+    return res.json(user);
   } catch {
     return res.status(500).json({ err: 'An error occured' });
   }
 };
 
 const update = async (req: Request, res: Response) => {
-  const id = req.params.userId;
-  const payload = req.body;
-
-  if (payload.role) {
-    throw new Error('User role cannot be modified');
-  }
-
   try {
-    const admin = await User.findOne({
+    const id = req.params.userId;
+    const payload = req.body;
+
+    if (payload.role) {
+      throw new Error('User role cannot be modified');
+    }
+
+    if (payload.role) {
+      throw new Error('User role cannot be modified');
+    }
+
+    const user = await User.findOne({
       where: { id },
     });
 
-    if (!admin) {
+    if (!user) {
       throw new Error('User not found');
     }
 
-    const updatedUser = await admin.update(payload);
+    const updatedUser = await user.update(payload);
     return res.json(updatedUser);
   } catch (err) {
     return res.status(500).json({ err: 'An error occured' });
@@ -72,14 +76,14 @@ const update = async (req: Request, res: Response) => {
 };
 
 const deleteOne = async (req: Request, res: Response) => {
-  const id = req.params.userId;
-
   try {
-    const admin = await User.findOne({
+    const id = req.params.userId;
+
+    const user = await User.findOne({
       where: { id },
     });
 
-    if (!admin) {
+    if (!user) {
       throw new Error('User not found');
     }
 
@@ -88,7 +92,7 @@ const deleteOne = async (req: Request, res: Response) => {
     });
 
     if (deletedUser) {
-      return res.json(`Deleted admin ${id}`);
+      return res.json(`Deleted user ${id}`);
     }
   } catch (err) {
     return res.status(500).json({ err: 'An error occured' });

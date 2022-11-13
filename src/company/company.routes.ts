@@ -1,39 +1,42 @@
 import company from './company.controller';
 import r = require('express');
 import passport = require('passport');
+import { validator } from '../lib/validations';
+import { schemas } from '../validations/schemas';
 
 const router = r.Router();
 
-// All should admin only routes
-// Create a new admin
+// Create a new company
 router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
+  validator(schemas.createCompany, 'body'),
   company.create,
 );
 
-// Retrieve all admins
+// Retrieve all companies
 router.get(
   '/',
   passport.authenticate('jwt', { session: false }),
   company.findAll,
 );
 
-// Retrieve a single admin with adminId
+// Retrieve a single company with companyId
 router.get(
   '/:companyId',
   passport.authenticate('jwt', { session: false }),
   company.findById,
 );
 
-// Update an admin with adminId
+// Update an company with companyId
 router.put(
   '/:companyId',
   passport.authenticate('jwt', { session: false }),
+  validator(schemas.updateCompany, 'body'),
   company.update,
 );
 
-// Delete an admin with adminId
+// Delete an company with companyId
 router.delete(
   '/:companyId',
   passport.authenticate('jwt', { session: false }),

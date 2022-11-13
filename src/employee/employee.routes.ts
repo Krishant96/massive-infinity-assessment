@@ -1,41 +1,42 @@
 import employee from './employee.controller';
 import r = require('express');
 import passport = require('passport');
+import { validator } from '../lib/validations';
+import { schemas } from '../validations/schemas';
 
 const router = r.Router();
 
-// Admin only route
-// Create a new admin
+// Create a new employee
 router.post(
   '/:companyId',
   passport.authenticate('jwt', { session: false }),
+  validator(schemas.createEmployee, 'body'),
   employee.create,
 );
 
-// Admin only route
-// Retrieve all admins
+// Retrieve all employees
 router.get(
   '/:companyId',
   passport.authenticate('jwt', { session: false }),
   employee.findAll,
 );
 
-// Retrieve a single admin with adminId
+// Retrieve an employee with employeeId
 router.get(
   '/:companyId/:employeeId',
   passport.authenticate('jwt', { session: false }),
   employee.findById,
 );
 
-// Update an admin with adminId
+// Update an employee with employeeId
 router.put(
   '/:companyId/:employeeId',
   passport.authenticate('jwt', { session: false }),
+  validator(schemas.updateEmployee, 'body'),
   employee.update,
 );
 
-// Admin only route
-// Delete an admin with adminId
+// Delete an employee with employeeId
 router.delete(
   '/:companyId/:employeeId',
   passport.authenticate('jwt', { session: false }),

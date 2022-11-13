@@ -1,39 +1,42 @@
 import users from './user.controller';
 import r = require('express');
 import passport = require('passport');
+import { validator } from '../lib/validations';
+import { schemas } from '../validations/schemas';
 
 const router = r.Router();
 
-// All should admin only routes
-// Create a new admin
+// Create a new user
 router.post(
   '/',
   passport.authenticate('jwt', { session: false }),
+  validator(schemas.createUser, 'body'),
   users.create,
 );
 
-// Retrieve all admins
+// Retrieve all users
 router.get(
   '/',
   passport.authenticate('jwt', { session: false }),
   users.findAll,
 );
 
-// Retrieve a single admin with adminId
+// Retrieve a single user with userId
 router.get(
   '/:userId',
   passport.authenticate('jwt', { session: false }),
   users.findById,
 );
 
-// Update an admin with adminId
+// Update a user with userId
 router.put(
   '/:userId',
   passport.authenticate('jwt', { session: false }),
+  validator(schemas.updateUser, 'body'),
   users.update,
 );
 
-// Delete an admin with adminId
+// Delete a user with userId
 router.delete(
   '/:userId',
   passport.authenticate('jwt', { session: false }),

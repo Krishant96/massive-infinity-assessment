@@ -2,10 +2,10 @@ import { Company } from './company.model';
 import { Request, Response } from 'express';
 
 const create = async (req: Request, res: Response) => {
-  const { name, email, logo, website } = req.body;
-  const status = 'active';
-
   try {
+    const { name, email, logo, website } = req.body;
+    const status = 'active';
+
     const company = await Company.create({
       name,
       email,
@@ -44,10 +44,10 @@ const findById = async (req: Request, res: Response) => {
 };
 
 const update = async (req: Request, res: Response) => {
-  const id = req.params.companyId;
-  const payload = req.body;
-
   try {
+    const id = req.params.companyId;
+    const payload = req.body;
+
     const company = await Company.findOne({
       where: { id },
     });
@@ -64,9 +64,9 @@ const update = async (req: Request, res: Response) => {
 };
 
 const deleteOne = async (req: Request, res: Response) => {
-  const id = req.params.companyId;
-
   try {
+    const id = req.params.companyId;
+
     const company = await Company.findOne({
       where: { id },
     });
