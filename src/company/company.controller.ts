@@ -88,14 +88,15 @@ const deleteOne = async (req: Request, res: Response) => {
 };
 
 const uploadLogo = async (req, res) => {
-  console.log(req.files);
   const files = req.files;
-  console.log(files);
+  const id = req.params.companyId;
+  let fileName = '';
 
   Object.keys(files).forEach(key => {
+    fileName = files[key].name;
     const filepath = path.join(
       __dirname,
-      '..',
+      '../..',
       'public/uploads',
       files[key].name,
     );
@@ -104,10 +105,20 @@ const uploadLogo = async (req, res) => {
     });
   });
 
-  return res.json({
-    status: 'success',
-    message: Object.keys(files).toString(),
+  const company = await Company.findOne({
+    where: { id },
   });
+
+  if (!company) {
+    throw new Error('Company not found');
+  }
+
+  const payload = {
+    logo: `http://localhost:3000/public/uploads/${fileName}`,
+  };
+
+  const updatedCompany = await company.update(payload);
+  return res.json(updatedCompany);
 };
 
 export default {

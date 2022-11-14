@@ -22,6 +22,7 @@ const port = process.env.SERVER_PORT || 3000;
 app.use(passport.initialize());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+app.use('/public', express.static('public'));
 
 app.use(routes);
 
