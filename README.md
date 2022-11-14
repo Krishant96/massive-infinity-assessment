@@ -88,3 +88,7 @@ GET /employee/:employeeId
 PUT /employee/:employeeId
 DELETE /employee/:employeeId
 ```
+
+## File Uploads
+
+Uploaded files can be accessed at <http://localhost:3000/public/uploads/{filename}>
